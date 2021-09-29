@@ -1,9 +1,9 @@
-const getRandomInt = (from, to, decimal) => {
-  const getRandom = (min, max, sign = 0) => {
-    const number = Math.random() * (max - min) + min;
-    return number.toFixed(sign);
+const getRandomNumber = (from, to, precission) => {
+  const getRandom = (min, max, decimal) => {
+    const number = min + Math.random() * (max - min) ;
+    return !decimal ?  Math.round(number) : number.toFixed(decimal);
   };
-  return (from < to) ? getRandom(from, to, decimal) : getRandom (to, from, decimal);
+  return (from < to) ? getRandom(from, to, precission) : getRandom (to, from, precission);
 };
 
-getRandomInt(1, 3, 5);
+getRandomNumber(5, 3, 4);
