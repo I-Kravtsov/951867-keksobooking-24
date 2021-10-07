@@ -6,6 +6,8 @@ const getRandomNumber = (from, to, precission) => {
   return (from < to) ? getRandom(from, to, precission) : getRandom (to, from, precission);
 };
 
+const SIMILAR_ADVERTISMENT_COUNT = 10;
+
 const TYPES = [
   'palace',
   'flat',
@@ -41,7 +43,7 @@ const TITLES = [
   'Grand Mercure Beijing Central',
   'Cote Cour Beijing',
   'Novotel Beijing Peace',
-  ' Beijing Qianyuan',
+  'Beijing Qianyuan',
   'Inner Mongolia Forbidden City',
 ];
 
@@ -58,7 +60,8 @@ const DESCRIPTIONS = [
 
 
 const getRandomElement = (array) => {
-  return array[getRandomNumber(0, (array.length -1))];
+  const randomElement = array[getRandomNumber(0, (array.length -1))];
+  return randomElement;
 };
 
 const getRandomArray = (array) => {
@@ -73,34 +76,37 @@ const getRandomArray = (array) => {
   return randomArray;
 };
 
-const avatarNumber = String(getRandomNumber(0, 10)).padStart(2, 0);
-
 const createAdvertisement = () => {
+  const latValue = getRandomNumber(35.65000, 35.70000, 5);
+  const lngValue = getRandomNumber(139.70000, 139.80000, 5);
   return {
     author: {
-      avatar: `img/avatars/user${avatarNumber}.png`,
+      avatar: `img/avatars/user${String(getRandomNumber(0, 10)).padStart(2, 0)}.png`,
     },
     offer: {
       title: getRandomElement(TITLES),
-      address: '',
+      address: `${latValue}, ${lngValue}`,
       price: getRandomNumber(0, 100),
+      type: getRandomElement(TYPES),
+      rooms: getRandomNumber(1, 7),
+      get guests () {
+        return this.rooms;
+      },
+      checkin: getRandomElement(CHECKIN_TIMES),
+      get checkout () {
+        return this.checkin;
+      },
+      features: getRandomArray(FEATURES),
+      description: getRandomElement(DESCRIPTIONS),
+      photos: getRandomArray(PHOTOS),
     },
-    type: getRandomElement(TYPES),
-    rooms: getRandomNumber(0, 7),
-    get guests () {
-      return this.rooms;
-    },
-    checkin: getRandomElement(CHECKIN_TIMES),
-    get checkout () {
-      return this.checkin;
-    },
-    features: getRandomArray(FEATURES),
-    description: getRandomElement(DESCRIPTIONS),
-    photos: getRandomArray(PHOTOS),
     location: {
-      lat: getRandomNumber(35.65000, 35.70000, 5),
-      lng: getRandomNumber(35.65000, 35.70000, 5),
+      lat:  latValue,
+      lng: lngValue,
     },
   };
 };
 createAdvertisement();
+
+
+const similarAdvertisments = Array.from({length: SIMILAR_ADVERTISMENT_COUNT}, createAdvertisement);
