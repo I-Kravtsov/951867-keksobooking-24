@@ -109,4 +109,4 @@ const createAdvertisement = () => {
 createAdvertisement();
 
 
-const similarAdvertisments = Array.from({length: SIMILAR_ADVERTISMENT_COUNT}, createAdvertisement);
+Array.from({length: SIMILAR_ADVERTISMENT_COUNT}, createAdvertisement);
