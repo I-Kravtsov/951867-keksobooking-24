@@ -6,7 +6,7 @@ const createAdvertisement = () => {
   const lngValue = getRandomNumber(139.70000, 139.80000, 5);
   return {
     author: {
-      avatar: `img/avatars/user${String(getRandomNumber(0, 10)).padStart(2, 0)}.png`,
+      avatar: `img/avatars/user${String(getRandomNumber(1, 10)).padStart(2, 0)}.png`,
     },
     offer: {
       title: getRandomElement(TITLES),
