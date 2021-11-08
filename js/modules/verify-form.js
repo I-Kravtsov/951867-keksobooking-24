@@ -7,6 +7,10 @@ const titleField = adForm.querySelector('#title');
 const priceField = adForm.querySelector('#price');
 const roomNumberField = adForm.querySelector('#room_number');
 const capacityField = adForm.querySelector('#capacity');
+const typeField = adForm.querySelector('#type');
+const timein = adForm.querySelector('#timein');
+const timeout = adForm.querySelector('#timeout');
+
 const setCapacityFieldCustomValidity = () => {
   for(const option of capacityField.options) {
     if(option.selected) {
@@ -40,6 +44,20 @@ const setCapacityFieldDisabled = () => {
   }
 };
 
+const setPriceFieldCustomValidity = () => {
+  if (priceField.value <= 0) {
+    priceField.setCustomValidity('Цена за ночь не может быть меньше или равна 0');
+  } else if (priceField.value >= MAX_PRICE_VALUE) {
+    priceField.setCustomValidity('Это слишком дорого, максимальная цена за ночь 1 000 000 рублей');
+  } else if (Number(priceField.value) < Number(priceField.min)) {
+    priceField.setCustomValidity(`Цена за ночь не может быть меньше ${priceField.min} рублей`);
+  } else {
+    priceField.setCustomValidity('');
+  }
+
+  priceField.reportValidity();
+};
+
 titleField.addEventListener('input', () => {
   const inputValueLength = titleField.value.length;
   if (inputValueLength === 0) {
@@ -55,15 +73,15 @@ titleField.addEventListener('input', () => {
 });
 
 priceField.addEventListener('input', () => {
-  if (priceField.value <= 0) {
-    priceField.setCustomValidity('Цена не может быть отрицательной');
-  } else if (priceField.value >= MAX_PRICE_VALUE) {
-    priceField.setCustomValidity('Это слишком дорого, максимальная цена за ночь 1 000 000 рублей');
-  } else {
-    priceField.setCustomValidity('');
-  }
+  setPriceFieldCustomValidity();
+});
 
-  priceField.reportValidity();
+timein.addEventListener('change', () => {
+  timeout.value = timein.value;
+});
+
+timeout.addEventListener('change', () => {
+  timein.value = timeout.value;
 });
 
 roomNumberField.addEventListener('change', () => {
@@ -74,6 +92,33 @@ roomNumberField.addEventListener('change', () => {
 capacityField.addEventListener('change', () => {
   setCapacityFieldDisabled();
   setCapacityFieldCustomValidity();
+});
+
+typeField.addEventListener('change', () => {
+  let minValue = 0;
+  switch (typeField.value) {
+    case 'flat' :
+      minValue = 1000;
+      break;
+    case 'bungalow' :
+      minValue = 0;
+      break;
+    case 'house' :
+      minValue = 5000;
+      break;
+    case 'palace' :
+      minValue = 10000;
+      break;
+    case 'hotel' :
+      minValue = 3000;
+      break;
+    default :
+      minValue = 33;
+  }
+  priceField.placeholder = minValue;
+  priceField.min = minValue;
+  // console.log(minValue);
+  setPriceFieldCustomValidity();
 });
 
 adForm.addEventListener('submit', (evt) => {
