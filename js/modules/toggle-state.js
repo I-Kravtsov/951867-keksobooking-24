@@ -23,3 +23,4 @@ const setInactivState = (state) => {
 };
 
 export {setInactivState};
+
