@@ -22,4 +22,5 @@ const setInactivState = (state) => {
   setInactivform(mapFilter, 'map__filters--disabled', state);
 };
 
-setInactivState('active');
+export {setInactivState};
+
