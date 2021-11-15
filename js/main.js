@@ -2,6 +2,7 @@
 // import { getSimilarOffer } from './modules/get-similar-offers.js';
 import  './modules/verify-form.js';
 import './modules/toggle-state.js';
+import './modules/fetch.js';
 
 import './modules/map.js';
 // const SIMILAR_ADVERTISMENT_COUNT = 10;

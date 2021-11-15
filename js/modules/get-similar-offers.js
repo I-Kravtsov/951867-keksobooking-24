@@ -38,10 +38,15 @@ const getSimilarOffer = (offer) => {
   const offerFeaturesContainer = element.querySelector('.popup__features');
   const offerFeatureList = offerFeaturesContainer.querySelectorAll('.popup__feature');
   offerFeatureList.forEach((feaatureListItem) => {
-    const isNecessary = offer.offer.features.some( (offerFeature) => feaatureListItem.classList.contains(`popup__feature--${offerFeature}`));
-    if(!isNecessary) {
-      feaatureListItem.remove();
+    if (!offer.offer.features) {
+      offerFeaturesContainer.remove();
+    } else {
+      const isNecessary = offer.offer.features.some( (offerFeature) => feaatureListItem.classList.contains(`popup__feature--${offerFeature}`));
+      if(!isNecessary) {
+        feaatureListItem.remove();
+      }
     }
+
   });
   const offerDescription = element.querySelector('.popup__description');
   if(offer.offer.description) {
@@ -50,11 +55,14 @@ const getSimilarOffer = (offer) => {
   const offerPhotos = element.querySelector('.popup__photos');
   const offerPhotoImageTemplate = offerPhotos.querySelector('img');
   offerPhotos.textContent = '';
-  offer.offer.photos.forEach ((offerPhoto) => {
-    const offerPhotoImage = offerPhotoImageTemplate.cloneNode(true);
-    offerPhotoImage.src = offerPhoto;
-    offerPhotos.appendChild(offerPhotoImage);
-  });
+  if(offer.offer.photos) {
+    offer.offer.photos.forEach ((offerPhoto) => {
+      const offerPhotoImage = offerPhotoImageTemplate.cloneNode(true);
+      offerPhotoImage.src = offerPhoto;
+      offerPhotos.appendChild(offerPhotoImage);
+    });
+  }
+
   const authorAvatar = element.querySelector('.popup__avatar');
   if (offer.author.avatar) {
     authorAvatar.src = offer.author.avatar;
