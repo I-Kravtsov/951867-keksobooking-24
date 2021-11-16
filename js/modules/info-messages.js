@@ -8,16 +8,16 @@ const showSuccessMessage = () => {
   const successMessageElement = successMessageTemplate.cloneNode(true);
   const body = document.querySelector('body');
   body.appendChild(successMessageElement);
-  const closeSuccessPopup = () => {
-    successMessageElement.remove();
-    document.removeEventListener('keydown', onSuccessEscKeydown); // Не знаю, что с этим делать.
-  };
   const onSuccessEscKeydown = (evt) => {
     if(evt.key === 'Escape') {
       evt.preventDefault();
       closeSuccessPopup();
     }
   };
+  function closeSuccessPopup () {
+    successMessageElement.remove();
+    document.removeEventListener('keydown', onSuccessEscKeydown);
+  }
   successMessageElement.addEventListener('click', () => {
     closeSuccessPopup();
   });
@@ -32,16 +32,16 @@ const showErrorMessage = () => {
   const errorMessageElement = errorMessageTemplate.cloneNode(true);
   const body = document.querySelector('body');
   body.appendChild(errorMessageElement);
-  const closeErrorPopup = () => {
-    errorMessageElement.remove();
-    document.removeEventListener('keydown', onErrorEscKeydown); // Не знаю, что с этим делать.
-  };
   const onErrorEscKeydown = (evt) => {
     if(evt.key === 'Escape') {
       evt.preventDefault();
       closeErrorPopup();
     }
   };
+  function closeErrorPopup () {
+    errorMessageElement.remove();
+    document.removeEventListener('keydown', onErrorEscKeydown);
+  }
   errorMessageElement.addEventListener('click', () => {
     closeErrorPopup();
   });
