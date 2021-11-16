@@ -63,7 +63,7 @@ const addSimillarPoints = (points) => {
   });
 };
 
-getData((data) => {
+getData('https://24.javascript.pages.academy/keksobooking/data',(data) => {
   addSimillarPoints(data.slice(0, 10));
 }, showLoadErrorMessage);
 

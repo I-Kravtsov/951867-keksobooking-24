@@ -1,29 +1,31 @@
-const getData = (onSuccess, onFail) => {
-  fetch('https://24.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((data) => {
-      onSuccess(data);
-    })
-    .catch (() => {
-      onFail('Что-то пошло не так!');
-    });
+const getData = async (url, onSuccess, onError) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw response;
+    }
+    const data = await response.json();
+    onSuccess(data);
+  } catch (error) {
+    onError(error);
+  }
 };
 
-const sendData = (onSuccess, onFail, body) => {
-  fetch('https://24.javascript.pages.academy/keksobooking', {
-    method: 'POST',
-    body,
-  })
-    .then((response) => {
-      if(response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-    .catch(() => {
-      onFail();
+const sendData = async (url, onSuccess, onError, body) => {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body,
     });
+    if (!response.ok) {
+      throw response;
+    }
+    const data = await response.json();
+    onSuccess(data);
+  } catch (error) {
+    onError(error);
+  }
 };
+
 export {getData};
 export {sendData};

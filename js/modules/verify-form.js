@@ -141,7 +141,7 @@ adForm.addEventListener('submit', (evt) => {
     setCapacityFieldCustomValidity();
   } else {
     sendData(
-      () => {
+      'https://24.javascript.pages.academy/keksobooking', () => {
         showSuccessMessage();
         clearForm();
       },
