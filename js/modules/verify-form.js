@@ -1,3 +1,6 @@
+import { sendData } from './fetch.js';
+import { showSuccessMessage, showErrorMessage } from './info-messages.js';
+import { resetMap } from './map.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1000000;
@@ -117,15 +120,36 @@ typeField.addEventListener('change', () => {
   }
   priceField.placeholder = minValue;
   priceField.min = minValue;
-  // console.log(minValue);
   setPriceFieldCustomValidity();
 });
 
+const clearForm = () => {
+  adForm.reset();
+  resetMap();
+};
+
+const resetButton = adForm.querySelector('.ad-form__reset');
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  clearForm();
+});
+
 adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   if(capacityField.value > roomNumberField.value){
-    evt.preventDefault();
     setCapacityFieldDisabled();
     setCapacityFieldCustomValidity();
+  } else {
+    sendData(
+      'https://24.javascript.pages.academy/keksobooking', () => {
+        showSuccessMessage();
+        clearForm();
+      },
+      () => {
+        showErrorMessage();
+      },
+      new FormData(evt.target),
+    );
   }
 
   capacityField.reportValidity();
