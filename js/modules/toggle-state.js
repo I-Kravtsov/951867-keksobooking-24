@@ -16,7 +16,6 @@ const setInactivform = (form, disableClass, state) => {
   }
 };
 
-
 const setAdFormInactivState = (state) => {
   setInactivform(adForm, 'ad-form--disabled', state);
 };

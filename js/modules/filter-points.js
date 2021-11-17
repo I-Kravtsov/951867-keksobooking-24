@@ -60,28 +60,24 @@ const filterPoints = (point) => {
     if(!parkingFilterItem.checked || !point.offer.features) {
       return true;
     }
-    // console.log(point.offer.feincludes(wifiFilterItem.value));
     return point.offer.features.includes(parkingFilterItem.value);
   };
   const filterWasher = () => {
     if(!washerFilterItem.checked || !point.offer.features) {
       return true;
     }
-    // console.log(point.offer.feincludes(wifiFilterItem.value));
     return point.offer.features.includes(washerFilterItem.value);
   };
   const filterElevator = () => {
     if(!elevatorFilterItem.checked || !point.offer.features) {
       return true;
     }
-    // console.log(point.offer.feincludes(wifiFilterItem.value));
     return point.offer.features.includes(elevatorFilterItem.value);
   };
   const filterConditioner = () => {
     if(!conditionerFilterItem.checked || !point.offer.features) {
       return true;
     }
-    // console.log(point.offer.feincludes(wifiFilterItem.value));
     return point.offer.features.includes(conditionerFilterItem.value);
   };
   return filterType() && filterRooms() && filterGuests() && filterPrice() && filterWifi() && filterDishwasher() && filterParking() && filterWasher() && filterElevator() && filterConditioner();

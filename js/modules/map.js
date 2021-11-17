@@ -1,14 +1,12 @@
+
 import {setAdFormInactivState, setFilterFormInactivState} from './toggle-state.js';
 import { getSimilarOffer } from './get-similar-offers.js';
 import {getData} from './fetch.js';
 import { showLoadErrorMessage } from './info-messages.js';
 import {filterPoints} from './filter-points.js';
-// Temporarry
-// import { createAdvertisement } from '../utils/get-random-data.js';
+const RENDER_DELAY = 500;
 setAdFormInactivState('infactive');
 setFilterFormInactivState('infactive');
-// const similarData = Array.from({length: 10}, createAdvertisement);
-// ------------------
 const START_COORDS = {lat:35.68172, lng:139.75392};
 const addressField = document.querySelector('#address');
 
@@ -93,13 +91,12 @@ const setFilterFormChange= (cb) => {
   });
 };
 
-
 getData('https://24.javascript.pages.academy/keksobooking/data',(data) => {
   addSimillarPoints(data);
   setFilterFormInactivState('active');
-  setFilterFormChange(() => {
+  setFilterFormChange(_.debounce(() => {
     addSimillarPoints(data);
-  });
+  }, RENDER_DELAY));
 }, showLoadErrorMessage);
 
 export {resetMap};

@@ -67,10 +67,6 @@ const getSimilarOffer = (offer) => {
   if (offer.author.avatar) {
     authorAvatar.src = offer.author.avatar;
   }
-  // offerFragment.appendChild(element);
-
-  // console.log(offerFragment);
-  // return offerFragment;
   return element;
 };
 
