@@ -1,14 +1,16 @@
-import {setInactivState} from './toggle-state.js';
+
+import {setAdFormInactivState, setFilterFormInactivState} from './toggle-state.js';
 import { getSimilarOffer } from './get-similar-offers.js';
 import {getData} from './fetch.js';
 import { showLoadErrorMessage } from './info-messages.js';
-// Temporarry
-// import { createAdvertisement } from '../utils/get-random-data.js';
-setInactivState('infactive');
-// const similarData = Array.from({length: 10}, createAdvertisement);
-// ------------------
+import {filterPoints} from './filter-points.js';
+const RENDER_DELAY = 500;
+setAdFormInactivState('infactive');
+setFilterFormInactivState('infactive');
 const START_COORDS = {lat:35.68172, lng:139.75392};
 const addressField = document.querySelector('#address');
+
+const filterForm = document.querySelector('.map__filters');
 const mainPinIcon = L.icon({
   iconUrl:'../../img/main-pin.svg',
   iconSize: [52, 52],
@@ -23,7 +25,7 @@ const mainPin = L.marker(
 );
 const map = L.map('map-canvas')
   .on('load', () => {
-    setInactivState('active');
+    setAdFormInactivState('active');
   })
   .setView(START_COORDS, 12);
 
@@ -49,8 +51,28 @@ mainPin.on('moveend', (evt) => {
   addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 });
 
+
+const simillarPointsGroup = L.layerGroup().addTo(map);
+
+const comparePoints = (pointA, pointB) => {
+  let parametrA;
+  let parametrB;
+  if (!pointA.offer.features) {
+    parametrA = 0;
+  } else {
+    parametrA = pointA.offer.features.length;
+  }
+  if (!pointB.offer.features) {
+    parametrB = 0;
+  } else {
+    parametrB = pointB.offer.features.length;
+  }
+
+  return parametrB - parametrA;
+};
+
 const addSimillarPoints = (points) => {
-  points.forEach((point) => {
+  points.filter(filterPoints).sort(comparePoints).slice(0, 10).forEach((point) => {
     const {location} = point;
     const markerIcon = L.icon({
       iconUrl: '../../img/pin.svg',
@@ -59,12 +81,22 @@ const addSimillarPoints = (points) => {
     });
     const popup = L.popup().setContent(getSimilarOffer(point));
     const marker = L.marker(location, {icon: markerIcon});
-    marker.addTo(map).bindPopup(popup);
+    marker.addTo(simillarPointsGroup).bindPopup(popup);
+  });
+};
+const setFilterFormChange= (cb) => {
+  filterForm.addEventListener('change', () => {
+    simillarPointsGroup.clearLayers();
+    cb();
   });
 };
 
 getData('https://24.javascript.pages.academy/keksobooking/data',(data) => {
-  addSimillarPoints(data.slice(0, 10));
+  addSimillarPoints(data);
+  setFilterFormInactivState('active');
+  setFilterFormChange(_.debounce(() => {
+    addSimillarPoints(data);
+  }, RENDER_DELAY));
 }, showLoadErrorMessage);
 
 export {resetMap};

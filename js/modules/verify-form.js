@@ -1,3 +1,4 @@
+
 import { sendData } from './fetch.js';
 import { showSuccessMessage, showErrorMessage } from './info-messages.js';
 import { resetMap } from './map.js';
