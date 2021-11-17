@@ -17,10 +17,13 @@ const setInactivform = (form, disableClass, state) => {
 };
 
 
-const setInactivState = (state) => {
+const setAdFormInactivState = (state) => {
   setInactivform(adForm, 'ad-form--disabled', state);
+};
+const setFilterFormInactivState = (state) => {
   setInactivform(mapFilter, 'map__filters--disabled', state);
 };
 
-export {setInactivState};
+export {setAdFormInactivState};
+export {setFilterFormInactivState};
 
