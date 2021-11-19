@@ -4,7 +4,7 @@ import { getSimilarOffer } from './get-similar-offers.js';
 import {getData} from './fetch.js';
 import { showLoadErrorMessage } from './info-messages.js';
 import {filterPoints} from './filter-points.js';
-const RENDER_DELAY = 500;
+const RENDER_DELAY = 10;
 setAdFormInactivState('infactive');
 setFilterFormInactivState('infactive');
 const START_COORDS = {lat:35.68172, lng:139.75392};
