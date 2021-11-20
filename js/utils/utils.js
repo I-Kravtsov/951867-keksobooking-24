@@ -12,15 +12,15 @@ const getRandomElement = (array) => {
 };
 
 const getRandomArray = (array) => {
-  const randomArray = [];
+  const values = [];
   for (let i = 0; i < array.length; i++) {
     const element = getRandomElement(array);
-    if (randomArray.includes(element)) {
+    if (values.includes(element)) {
       continue;
     }
-    randomArray.push(element);
+    values.push(element);
   }
-  return randomArray;
+  return values;
 };
 
 export {getRandomElement, getRandomNumber, getRandomArray};
