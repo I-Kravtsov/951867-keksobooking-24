@@ -43,44 +43,15 @@ const filterPoints = (point) => {
         return true;
     }
   };
-  const filterWifi = () => {
 
-    if(!wifiFilterItem.checked || !point.offer.features) {
+  const filterFeatures = (feature) => {
+
+    if(!feature.checked || !point.offer.features) {
       return true;
     }
-    return point.offer.features.includes(wifiFilterItem.value);
+    return point.offer.features.includes(feature.value);
   };
-  const filterDishwasher = () => {
-    if(!dishwasherFilterItem.checked || !point.offer.features) {
-      return true;
-    }
-    return point.offer.features.includes(dishwasherFilterItem.value);
-  };
-  const filterParking = () => {
-    if(!parkingFilterItem.checked || !point.offer.features) {
-      return true;
-    }
-    return point.offer.features.includes(parkingFilterItem.value);
-  };
-  const filterWasher = () => {
-    if(!washerFilterItem.checked || !point.offer.features) {
-      return true;
-    }
-    return point.offer.features.includes(washerFilterItem.value);
-  };
-  const filterElevator = () => {
-    if(!elevatorFilterItem.checked || !point.offer.features) {
-      return true;
-    }
-    return point.offer.features.includes(elevatorFilterItem.value);
-  };
-  const filterConditioner = () => {
-    if(!conditionerFilterItem.checked || !point.offer.features) {
-      return true;
-    }
-    return point.offer.features.includes(conditionerFilterItem.value);
-  };
-  return filterType() && filterRooms() && filterGuests() && filterPrice() && filterWifi() && filterDishwasher() && filterParking() && filterWasher() && filterElevator() && filterConditioner();
+  return filterType() && filterRooms() && filterGuests() && filterPrice() && filterFeatures(wifiFilterItem) && filterFeatures(dishwasherFilterItem) && filterFeatures(parkingFilterItem) && filterFeatures(washerFilterItem) && filterFeatures(elevatorFilterItem) && filterFeatures(conditionerFilterItem);
 };
 
 export {filterPoints};
