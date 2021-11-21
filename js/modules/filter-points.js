@@ -10,28 +10,28 @@ const filterPoints = (point) => {
   const elevatorFilterItem = document.querySelector('#filter-elevator');
   const conditionerFilterItem = document.querySelector('#filter-conditioner');
 
-  const filterType = () => {
+  const filterByType = () => {
     if (typeFilterItem.value !== 'any') {
       return typeFilterItem.value === point.offer.type;
     } else {
       return true;
     }
   };
-  const filterRooms = () => {
+  const filterByRooms = () => {
     if (roomsFilterItem.value !== 'any') {
       return Number(roomsFilterItem.value) === Number(point.offer.rooms);
     } else {
       return true;
     }
   };
-  const filterGuests = () => {
+  const filterByGuests = () => {
     if (guestsFilterItem.value !== 'any') {
       return Number(guestsFilterItem.value) === Number(point.offer.guests);
     } else {
       return true;
     }
   };
-  const filterPrice = () => {
+  const filterByPrice = () => {
     switch(priceFilterItem.value) {
       case 'low':
         return point.offer.price < 10000;
@@ -44,14 +44,14 @@ const filterPoints = (point) => {
     }
   };
 
-  const filterFeatures = (feature) => {
+  const filterByFeatures = (feature) => {
 
     if(!feature.checked || !point.offer.features) {
       return true;
     }
     return point.offer.features.includes(feature.value);
   };
-  return filterType() && filterRooms() && filterGuests() && filterPrice() && filterFeatures(wifiFilterItem) && filterFeatures(dishwasherFilterItem) && filterFeatures(parkingFilterItem) && filterFeatures(washerFilterItem) && filterFeatures(elevatorFilterItem) && filterFeatures(conditionerFilterItem);
+  return filterByType() && filterByRooms() && filterByGuests() && filterByPrice() && filterByFeatures(wifiFilterItem) && filterByFeatures(dishwasherFilterItem) && filterByFeatures(parkingFilterItem) && filterByFeatures(washerFilterItem) && filterByFeatures(elevatorFilterItem) && filterByFeatures(conditionerFilterItem);
 };
 
 export {filterPoints};
