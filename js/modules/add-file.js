@@ -24,6 +24,7 @@ photoChooser.addEventListener('change', () => {
   photoPreviewContainer.style.display = 'flex';
   photoPreviewContainer.style.alignItems = 'center';
   photoPreviewContainer.style.padding = '0 15px';
+  photoPreviewContainer.style.textAlign = 'center';
   onInputFileChange(photoChooser, image);
   photoPreviewContainer.appendChild(image);
 });
